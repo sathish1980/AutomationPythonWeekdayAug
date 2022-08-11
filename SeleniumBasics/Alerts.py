@@ -75,8 +75,10 @@ class Alerts():
                 if(checkboxtobeclicked.is_selected()==False):
                     print(self.driver.find_element(by=By.XPATH,value="(//table[@id='j_idt87:console1']//td[4]//div)[3]").is_selected())
                     self.driver.find_element(by=By.XPATH, value="//table[@id='j_idt87:console2']//td[4]//span").click()
-                    print(self.driver.find_element(by=By.XPATH,
-                                                   value="(//table[@id='j_idt87:console1']//td[4]//div)[3]").is_selected())
+                    time.sleep(2)
+                    value=self.driver.find_element(by=By.XPATH,
+                                                   value="//table[@id='j_idt87:console2']//td[4]//span").is_selected()
+                    print(value)
                 else:
                     print("The element is areadt selected")
 
