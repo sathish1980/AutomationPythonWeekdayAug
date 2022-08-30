@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from Page.FacebookLogoutpage import Facebooklogoutpage
+from Page.Facebooklogin import Facebookloginpage
 from TestData.FBLoginData import FBLogindata
 from Utils.ExcelReadData import ExcelReadData
 
@@ -34,7 +36,7 @@ class Test_Facebook():
         time.sleep(2)
         self.driver.find_element(by=By.XPATH, value="//*[text()='Log Out']").click()
 
-    def test_LoginintoFacebookwithExcel(self,FbTestDatawithExcel):
+    def est_LoginintoFacebookwithExcel(self,FbTestDatawithExcel):
         #WebDriverWait(self.driver, 60).until(EC.presence_of_all_elements_located(by=By.ID, value="email"))
         time.sleep(2)
         print(len(ExcelReadData.retrundicvalue()))
@@ -54,4 +56,23 @@ class Test_Facebook():
             #WebDriverWait(self.driver, 60).until(EC.element_to_be_clickable(by=By.XPATH, value="//*[text()='Log Out']"))
             time.sleep(2)
             self.driver.find_element(by=By.XPATH, value="//*[text()='Log Out']").click()
+
+    def test_LoginWithPOM(self,FbTestDatawithExcel):
+        FBLGPage=Facebookloginpage(self.driver)
+        FBLGoutPage = Facebooklogoutpage(self.driver)
+        time.sleep(2)
+        print(len(ExcelReadData.retrundicvalue()))
+        print(FbTestDatawithExcel["username" + str(2)])
+        totarows = len(ExcelReadData.retrundicvalue()) / 5
+        for eachvalue in range(1, int(totarows) + 1):
+            FBLGPage.Enter_the_username(FbTestDatawithExcel["username" + str(eachvalue)])
+            FBLGPage.Enter_password(FbTestDatawithExcel["password" + str(eachvalue)])
+            FBLGPage.Click_loginbutton()
+            time.sleep(4)
+            FBLGoutPage.Login_username()
+            FBLGoutPage.Click_Logout_Dropdown()
+            time.sleep(2)
+            FBLGoutPage.Click_Logout()
+            print("Login sucessfull")
+
 
